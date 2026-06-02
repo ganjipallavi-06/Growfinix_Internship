@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Glassmorphic Component Collection</title>
+    
+    <style>
+        /* --- 6. CONSISTENT STYLING: Shared Global CSS Variables --- */
+        :root {
+            --bg-color: #060913;
+            --card-bg: rgba(11, 17, 32, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(158, 169, 193, 0.75);
+            --accent-cyan: #00dfd8;
+            --accent-blue: #007cf0;
+            --accent-pink: #ff527b;
+            --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- Global Setup --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-stack);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(13, 110, 253, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(0, 223, 216, 0.12) 0%, transparent 45%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 60px 5%;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- Premium Dynamic Background Mesh Blobs --- */
+        .mesh-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 1;
+            opacity: 0.5;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            top: -10%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(94, 23, 235, 0.3) 0%, transparent 70%);
+            animation: floatBlob 14s infinite alternate ease-in-out;
+        }
+        .blob-2 {
+            width: 550px;
+            height: 550px;
+            bottom: -10%;
+            right: -10%;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.25) 0%, transparent 70%);
+            animation: floatBlobAlt 18s infinite alternate ease-in-out;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 40%, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* --- 2. LAYOUT TECHNIQUES: CSS Grid Container --- */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* --- Base Glassmorphic Card Style Construction --- */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* 8. HOVER EFFECTS: Transition parameters set */
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 8. HOVER EFFECTS: Scale shifts and soft neon casting shadows */
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 223, 216, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 223, 216, 0.1);
+        }
+
+        /* --- 3. CARD TYPE: PROFILE CARD --- */
+        .profile-card {
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-img-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 20px;
+        }
+
+        .profile-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px dashed var(--accent-cyan);
+            animation: rotateDashed 20s linear infinite;
+        }
+
+        .profile-name {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .profile-role {
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        /* --- 3. CARD TYPE: PRODUCT CARD --- */
+        .product-card {
+            padding: 20px;
+        }
+
+        .product-img-container {
+            width: 100%;
+            height: 180px;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .product-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img-container img {
+            transform: scale(1.08);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--accent-pink);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            text-transform: uppercase;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .cart-btn {
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .cart-btn {
+            background: #ffffff;
+            color: #060913;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- 3. CARD TYPE: BLOG CARD --- */
+        .blog-card {
+            padding: 20px;
+        }
+
+        .blog-thumb {
+            width: 100%;
+            height: 180px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .blog-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-thumb img {
+            transform: scale(1.08);
+        }
+
+        .blog-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .blog-card:hover .blog-title {
+            color: var(--accent-cyan);
+        }
+
+        .blog-excerpt {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .read-more-link {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: auto;
+            width: fit-content;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more-link:hover {
+            gap: 10px;
+        }
+
+        /* --- 3. CARD TYPE: TESTIMONIAL CARD --- */
+        .testimonial-card {
+            justify-content: space-between;
+        }
+
+        .quote-icon {
+            font-size: 2.5rem;
+            color: rgba(0, 223, 216, 0.15);
+            line-height: 1;
+            margin-bottom: -10px;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-text {
+            font-size: 0.98rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .ratings-row {
+            display: flex;
+            gap: 4px;
+            color: #ffb703; 
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 18px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .user-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .user-info span {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- 9. ACCESSIBILITY: Keyboard Interaction Focus Highlights --- */
+        .social-icon:focus, .cart-btn:focus, .read-more-link:focus {
+            outline: 2px solid var(--accent-cyan);
+            outline-offset: 4px;
+        }
+
+        /* --- Keyframe Animations --- */
+        @keyframes floatBlob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            100% { transform: translate(50px, 40px) scale(1.08); }
+        }
+        @keyframes floatBlobAlt {
+            0% { transform: translate(0px, 0px) scale(1); }
+            100% { transform: translate(-50px, -40px) scale(1.1); }
+        }
+        @keyframes rotateDashed {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- 10. MOBILE-FIRST RESPONSIVE RESPONSES --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 20px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            /* Grid track turns into 1 vertical column deck layout */
+            .component-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .glass-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mesh-glow blob-1"></div>
+    <div class="mesh-glow blob-2"></div>
+
+    <header>
+        <h1>Component Showcase</h1>
+        <p>Premium UI elements styled with elegant glassmorphic structures</p>
+    </header>
+
+    <main class="component-grid">
+
+        <article class="glass-card profile-card">
+            <div class="profile-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Sarah Jenkins portrait">
+            </div>
+            <h3 class="profile-name">Sarah Jenkins</h3>
+            <p class="profile-role">Lead UI Designer</p>
+            <div class="social-links">
+                <a href="#" class="social-icon" aria-label="Sarah Jenkins Twitter profile">TW</a>
+                <a href="#" class="social-icon" aria-label="Sarah Jenkins LinkedIn profile">LN</a>
+                <a href="#" class="social-icon" aria-label="Sarah Jenkins Dribbble profile">DB</a>
+            </div>
+        </article>
+
+        <article class="glass-card product-card">
+            <div class="product-img-container">
+                <span class="product-badge">New</span>
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Cyber Audio Pro Headphones">
+            </div>
+            <h3 class="product-title">Cyber Audio Pro</h3>
+            <div class="product-footer">
+                <span class="product-price">$249</span>
+                <button class="cart-btn">Add to Cart</button>
+            </div>
+        </article>
+
+        <article class="glass-card blog-card">
+            <div class="blog-thumb">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="Abstract gradient fluid art background illustration">
+            </div>
+            <h3 class="blog-title">The Future of Glassmorphic UI Design</h3>
+            <p class="blog-excerpt">Explore how frosted micro-interactions and depth structures are changing the modern web system layout space...</p>
+            <a href="#" class="read-more-link">Read More <span>&rarr;</span></a>
+        </article>
+
+        <article class="glass-card testimonial-card">
+            <div class="quote-icon">&ldquo;</div>
+            <p class="testimonial-text">This collection completely streamlined our product workflow. The attention to detail and pixel-perfect design standards are unmatched.</p>
+            <div>
+                <div class="ratings-row" aria-label="Rated 5 out of 5 stars">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <div class="testimonial-user">
+                    <img class="user-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus Vance portrait picture">
+                    <div class="user-info">
+                        <h4>Marcus Vance</h4>
+                        <span>CTO, Growfinix</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+</body>
+</html>

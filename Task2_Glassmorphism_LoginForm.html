@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Login Form</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at 10% 20%, rgba(94, 23, 235, 1) 0%, rgba(14, 116, 144, 1) 90%);
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            z-index: 1;
+        }
+        .circle-1 { 
+            width: 280px; 
+            height: 280px; 
+            top: 10%; 
+            left: 10%; 
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        }
+        .circle-2 { 
+            width: 240px; 
+            height: 240px; 
+            bottom: 10%; 
+            right: 15%; 
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        /* --- Glassmorphic Login Card --- */
+        .login-container {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            /* FIXED: Adjusted padding to prevent button overflow */
+            padding: 40px 35px;
+            background: rgba(255, 255, 255, 0.04); 
+            backdrop-filter: blur(18px);          
+            -webkit-backdrop-filter: blur(18px);  
+            border: 1px solid rgba(255, 255, 255, 0.12); 
+            border-radius: 28px;                  
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); 
+            z-index: 10;
+        }
+
+        .login-container h2 {
+            color: #ffffff;
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.75);
+            text-align: center;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        /* Middle "OR" Divider Layout */
+        .form-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.986); 
+            font-size: 0.85rem;
+            font-weight: 600;
+            /* FIXED: Optimized compact spacing */
+            margin-top: -6px;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .form-divider:not(:empty)::before { margin-right: .75em; }
+        .form-divider:not(:empty)::after { margin-left: .75em; }
+
+        /* Form Controls */
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            outline: none;
+            color: #ffffff;
+            font-size: 1.05rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #06b6d4;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Links Footer Row Container */
+        .form-options {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            margin-top: 4px;
+            margin-bottom: 24px;
+            padding: 0 4px;
+        }
+
+        .form-options a {
+            color: rgba(255, 255, 255, 0.999);
+            font-size: 0.88rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .form-options a:hover {
+            color: #06b6d4; 
+        }
+
+        .error-message {
+            color: #ff527b;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            padding-left: 6px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* Interactive Action Button */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #00b4d8;
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+            transition: all 0.3s ease; 
+        }
+
+        .submit-btn:hover {
+            background: #0096c7;
+            box-shadow: 0 6px 20px rgba(0, 150, 199, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .login-container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+
+    <div class="login-container">
+        <h2>Welcome Back 👋</h2>
+        <p class="subtitle">Login to continue your journey</p>
+        
+        <form id="loginForm" novalidate>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Enter your Username" autocomplete="off">
+                <div class="error-message" id="usernameError">Username field is required.</div>
+            </div>
+
+            <div class="form-divider">OR</div>
+
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Enter your Email" autocomplete="off">
+                <div class="error-message" id="emailError">Please enter a valid email address.</div>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Enter your Password">
+                <div class="error-message" id="passwordError">Password must be at least 6 characters.</div>
+            </div>
+
+            <div class="form-options">
+                <a href="#" onclick="alert('Redirecting to Password Reset...'); return false;">Forgot Password?</a>
+                <a href="#" onclick="alert('Opening Issue Report Form...'); return false;">Report Issue</a>
+            </div>
+
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+        passwordInput.addEventListener('input', validatePassword);
+
+        function validateUsername() {
+            const errorElement = document.getElementById('usernameError');
+            if (usernameInput.value.trim() === '') {
+                errorElement.style.display = 'block';
+                usernameInput.style.borderColor = '#ff527b';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                usernameInput.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const errorElement = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!emailRegex.test(emailInput.value.trim())) {
+                errorElement.style.display = 'block';
+                emailInput.style.borderColor = '#ff527b';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                emailInput.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                return true;
+            }
+        }
+
+        function validatePassword() {
+            const errorElement = document.getElementById('passwordError');
+            if (passwordInput.value.length < 6) {
+                errorElement.style.display = 'block';
+                passwordInput.style.borderColor = '#ff527b';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                passwordInput.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                return true;
+            }
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const isUserValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+
+            if (isUserValid && isEmailValid && isPasswordValid) {
+                alert('Login Successful!');
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
